@@ -4,7 +4,7 @@
   "description": "## Введение",
   "main": "runner.js",
   "scripts": {
-    "start": "node runner.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
     "@elbrus/eslint-config": "^1.0.0",
     "@eslint/js": "^9.12.0",
     "eslint": "^9.12.0",
-    "globals": "^15.10.0"
+    "globals": "^15.10.0",
+    "jest": "^30.0.5"
   },
   "dependencies": {
     "cli-table3": "^0.6.5"
