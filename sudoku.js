@@ -3,7 +3,7 @@ const Table = require('cli-table3');
 const CliTable3 = require('cli-table3');
 
 function read(number) {
-const filePath = fs.readFileSync('./puzzles.txt', 'utf-8');
+  const filePath = fs.readFileSync('./puzzles.txt', 'utf-8');
   const allBoards = filePath.trim().split('\n');
 
   // В этом массиве будут лежать все варианты судоку
@@ -31,15 +31,12 @@ const filePath = fs.readFileSync('./puzzles.txt', 'utf-8');
   return variationSudoku[number];
 }
 
-
 function solve(board) {
   // Проходим по каждой строке (strRow) и столбцу (strCol)
   for (let strRow = 0; strRow < 9; strRow++) {
     for (let strCol = 0; strCol < 9; strCol++) {
-
       // Если клетка пустая (обозначена '-'), пытаемся вставить туда число
       if (board[strRow][strCol] === '-') {
-
         // Пробуем поставить цифры от 1 до 9
         for (let num = 1; num <= 9; num++) {
           const value = String(num); // Преобразуем число в строку, т.к. в board хранятся строки
@@ -62,7 +59,11 @@ function solve(board) {
           }
 
           // Если цифры нет ни в строке, ни в столбце, ни в квадрате — ставим её
-          if (!row.includes(value) && !column.includes(value) && !box3x3.includes(value)) {
+          if (
+            !row.includes(value) &&
+            !column.includes(value) &&
+            !box3x3.includes(value)
+          ) {
             // Вставляем число в пустую клетку
             board[strRow][strCol] = value;
 
@@ -92,7 +93,7 @@ function isSolved(board) {
       const cell = board[row][col];
 
       // Если есть хотя бы одна пустая клетка — судоку не решено
-      if (cell === '-') { 
+      if (cell === '-') {
         return false;
       }
 
@@ -119,7 +120,10 @@ function isSolved(board) {
       for (let cellRow3x3 = boxRow; cellRow3x3 < boxRow + 3; cellRow3x3++) {
         for (let cellCol3x3 = boxCol; cellCol3x3 < boxCol + 3; cellCol3x3++) {
           // Пропускаем текущую ячейку
-          if ((cellRow3x3 !== row || cellCol3x3 !== col) && board[cellRow3x3][cellCol3x3] === cell) {
+          if (
+            (cellRow3x3 !== row || cellCol3x3 !== col) &&
+            board[cellRow3x3][cellCol3x3] === cell
+          ) {
             return false;
           }
         }
