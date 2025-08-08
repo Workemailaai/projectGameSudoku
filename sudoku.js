@@ -86,11 +86,48 @@ function solve(board) {
   return board;
 }
 
-function isSolved() {
-  /**
-   * Принимает игровое поле в том формате, в котором его вернули из функции solve.
-   * Возвращает булевое значение — решено это игровое поле или нет.
-   */
+function isSolved(board) {
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      const cell = board[i][j];
+
+      // Если есть хотя бы одна пустая клетка — судоку не решено
+      if (cell === '-') { 
+        return false;
+      }
+
+      // Проверка строки
+      for (let k = 0; k < 9; k++) {
+        // Пропускаем текущую ячейку, чтобы не сравнивать её саму с собой
+        if (k !== j && board[i][k] === cell) {
+          return false;
+        }
+      }
+
+      // Проверка столбца
+      for (let k = 0; k < 9; k++) {
+        // Пропускаем текущую ячейку, чтобы не сравнивать её саму с собой
+        if (k !== i && board[k][j] === cell) {
+          return false;
+        }
+      }
+
+      // Проверка блока 3x3
+      const boxRow = Math.floor(i / 3) * 3;
+      const boxCol = Math.floor(j / 3) * 3;
+
+      for (let k = boxRow; k < boxRow + 3; k++) {
+        for (let l = boxCol; l < boxCol + 3; l++) {
+          // Пропускаем текущую ячейку
+          if ((k !== i || l !== j) && board[k][l] === cell) {
+            return false;
+          }
+        }
+      }
+    }
+  }
+
+  return true;
 }
 
 function prettyBoard() {
