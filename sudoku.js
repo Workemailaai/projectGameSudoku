@@ -1,8 +1,32 @@
-function read() {
-  /**
-   * Прочесть файл puzzles.txt в кодировке 'utf-8' и вернуть эти данные из функции
-   */
+function read(number) {
+const data = fs.readFileSync('./puzzles.txt', 'utf-8');
+  const arrStrData = data.trim().split('\n');
+
+  // В этом массиве будут лежать все варианты судоку
+  const sudokuStart = [];
+
+  arrStrData.forEach((el) => {
+    // Создаю доску для каждой строки из файла txt
+    const board = [];
+    let index = 0;
+
+    for (let j = 0; j < 9; j++) {
+      board.push([]);
+
+      for (let i = 0; i < 9; i++) {
+        board[j].push(el[index]);
+        index++;
+      }
+    }
+
+    // Пушу все полученные доски в sudokuStart
+    sudokuStart.push(board);
+  });
+
+  // Возвращают вариант судоку под номером number
+  return sudokuStart[number];
 }
+
 
 function solve() {
   /**
