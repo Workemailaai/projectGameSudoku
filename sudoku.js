@@ -130,10 +130,17 @@ function isSolved(board) {
   return true;
 }
 
-function prettyBoard() {
-  /**
-   * Принимает игровое поле в том формате, в котором его вернули из функции solve.
-   * Выводит в консоль/терминал судоку.
-   * Подумай, как симпатичнее его вывести.
-   */
+function prettyBoard(board) {
+  const table = new Table();
+
+  for (let i = 0; i < 9; i++) {
+    // Если встречается '-', то заменяем на пустоту
+    const row = board[i].map((cell) => (cell === '-' ? ' ' : cell));
+
+    table.push(row);
+  }
+
+  console.log(table.toString());
 }
+
+module.exports = { read, solve, isSolved, prettyBoard, CliTable3 };
